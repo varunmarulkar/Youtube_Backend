@@ -20,7 +20,7 @@ export async function Register(req, res) {
         }
 
         const newUser = await UserModel.create({ username, email, password: bcrypt.hashSync(password, 10) })
-        res.status(201).json({ message: "User has added successfully", newUser })
+        res.status(201).json({ user: newUser });
 
     } catch (error) {
         res.status(500).json({ message: error.message })
