@@ -24,6 +24,7 @@ This is the backend for the YouTube Clone Capstone Project. It is built using No
 ## Setup Instructions
 
 1. Clone the repository
+git clone https://github.com/varunmarulkar/Youtube_Backend.git
 
 2. Install dependencies
 npm install
