@@ -1,0 +1,31 @@
+# YouTube Clone Backend
+
+This is the backend for the YouTube Clone Capstone Project. It is built using Node.js, Express.js, and MongoDB. This service handles user authentication, channel and video management, comments, and interactions like likes and dislikes.
+
+## Features
+
+- User registration and login using JWT authentication
+- Create, edit, delete, and fetch channels
+- Upload, edit, delete, and fetch videos
+- Add, edit, delete, and fetch comments
+- Like and dislike functionality
+- MongoDB used as the primary database
+
+
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+- JWT for authentication
+- dotenv for environment management
+
+## Setup Instructions
+
+1. Clone the repository
+
+2. Install dependencies
+npm install
+
+3. npm start
