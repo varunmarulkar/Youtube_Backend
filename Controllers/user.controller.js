@@ -6,25 +6,36 @@ import { JWT_SECRET } from "../config.js";
 
 // Register a user
 export async function Register(req, res) {
-    try {
-        const { username, email, password } = req.body
+  try {
+      const { username, email, password } = req.body;
 
-        if (!username || !email || !password) {
-            return res.status(400).json({ message: "fill all the fields" })
-        }
+      if (!username || !email || !password) {
+          return res.status(400).json({ message: "fill all the fields" });
+      }
 
-        const isExisted = await UserModel.findOne({ email })
+      const isExisted = await UserModel.findOne({ email });
+      if (isExisted) {
+          return res.status(400).json({ message: "the user is already exist" });
+      }
 
-        if (isExisted) {
-            return res.status(400).json({ message: "the user is already exist" })
-        }
+      const newUser = await UserModel.create({
+          username,
+          email,
+          password: bcrypt.hashSync(password, 10)
+      });
 
-        const newUser = await UserModel.create({ username, email, password: bcrypt.hashSync(password, 10) })
-        res.status(201).json({ user: newUser });
+  
+      const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: "1h" });
 
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+      res.status(201).json({ user: {
+          _id: newUser._id,
+          username: newUser.username,
+          email: newUser.email
+      }, token });
+
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
 }
  
 // Login user
@@ -54,6 +65,7 @@ export async function Login(req, res) {
           email: user.email,
           username: user.username
         }
+
       });
     } catch (err) {
       res.status(500).json({ message: err.message });
